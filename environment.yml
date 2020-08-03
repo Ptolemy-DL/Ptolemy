@@ -1,0 +1,64 @@
+name: nninst
+channels:
+- pytorch
+- defaults
+- conda-forge
+dependencies:
+- python=3.6.8
+- pip=19.1
+- numpy=1.16.3
+- pandas=0.24.2
+- matplotlib=3.0.3
+- h5py=2.8.0
+- dask=1.2.0
+- distributed=1.27.1
+#- pyarrow=0.9.0
+#- feather-format=0.4.0
+#- pytables=3.4.2
+- tensorflow=1.13.1=gpu*
+- pytorch=1.1.0
+- torchvision=0.2.2
+- cudatoolkit=10.0
+- protobuf=3.6.1
+- pyyaml=5.1.1
+- pip:
+  - tensorflow-estimator==1.13.0
+  - tensorpack==0.9.8
+  - jupyter==1.0.0
+  - notebook==5.7.8
+  - jupyterlab==0.35.5
+  - seaborn==0.9.0
+  - fire==0.1.3
+  - psutil==5.6.2
+  - scikit-learn==0.21.0
+  - pylint==2.3.1
+  - pep8==1.7.1
+  - flake8==3.7.7
+  - autopep8==1.4.4
+  - yapf==0.27.0
+  - black==19.10b0
+  - isort==4.3.18
+  - pre-commit==1.16.0
+  - tox==2.9.1
+  - cookiecutter==1.6.0
+#  - vmprof==0.4.11.dev2
+  - pympler==0.5
+  - ray==0.7.2
+  - ray[debug]==0.7.2
+  - setproctitle==1.1.10
+  - aiohttp==3.5.4
+  - Pillow==5.2.0
+  - inflection==0.3.1
+  - paramiko==2.4.0
+  - imageio==2.2.0
+  - onnx==1.1.1
+  - Keras==2.2.4
+  - onnx-tf==1.0
+  - tensorboardX==1.1
+  - foolbox==1.3.2
+  - randomstate==1.13.3
+  - more-itertools==4.0.1
+  # - pyre-check==0.0.25
+  - jupyter-http-over-ws==0.0.6
+  - git+https://github.com/nottombrown/imagenet_stubs
+  - jupytext===1.1.1

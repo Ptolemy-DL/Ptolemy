@@ -1,0 +1,8 @@
+| Attack   | Hyper-parameters                                             |
+| -------- | ------------------------------------------------------------ |
+| FGSM     | epsilons: 1000 (number of step sizes between 0 and max_epsilon) max_epsilon: 1(largest step size) |
+| DeepFool | steps: 100 (maximum number of steps) subsample: 10 (limit on the number of the most likely classes that should be considered) |
+| JSMA     | max_iter: 2000 (the maximum number of iterations) num_random_targets: 0 (number of random target classes) fast: True (whether to use the fast saliency map calculation) theta: 0.1 (perturbation per pixel relative to [min, max] range) max_perturbations_per_pixel: 7 (maximum number of times a pixel can be modified) |
+| BIM      | epsilons: 100 (number of step sizes between 0 and max_epsilon) max_epsilon: 1 (largest step size) steps: 10 (number of iterations) |
+| CWL2     | confidence: 0 (confidence of adversarial examples: higher produces examples that are farther away, but more strongly classified as adversarial) targeted: True (whether we should perform a targeted attack or not) learning_rate: 0.01 (the learning rate for the attack algorithm) binary_search_steps: 9 (the number of times we perform binary search to find the optimal tradeoff-constant between distance and confidence) max_iterations: 10000 (the maximum number of iterations) abort_early: True (whether we allow early aborts if gradient descent gets stuck) initial_const: 0.001 (the initial tradeoff-constant to use to tune the relative importance of distance and confidence) boxmin: -0.5 (minimum pixel value) boxmax: 0.5 (maximum pixel value) |
+| Adaptive | layer_num: 3 (number of layers to mimic) retry_times: 5 (number of trials to find better adversarial examples) |

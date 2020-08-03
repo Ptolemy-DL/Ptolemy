@@ -1,0 +1,11 @@
+name: tf_models
+channels:
+- pytorch
+- defaults
+- conda-forge
+dependencies:
+- python=2.7.14
+- pip=9.0.1
+- pip:
+  - numpy==1.14.2
+  - tensorflow==1.7.0
