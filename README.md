@@ -2,7 +2,7 @@
 
 This repo contains the artifact of [Ptolemy: Architectural Support for Robust Deep Learning](), which is mechanism to detect adversarial samples at inference time.
 
-The detection mechanism is evaluated on different networks (AlexNet, ResNet, and VGG) on different datasets (Imagenet, CIFAR-10, CIFAR-100) under common attacks (FGSM, DeepFool, CWL2, BIM, etc.). The repo also contains code to generate adaptive attacks that are specifically designed to "defeat" our defense mechanisms.
+The detection mechanism is evaluated on different networks on different datasets under common attacks. The repo also contains code to generate adaptive attacks that are specifically designed to "defeat" our defense mechanisms.
 
 ## Working environment
 We have tested our code on a system with Red Hat 4.8.5-39; the machine we run this code is Intel(R) Xeon(R) Silver 4110 with 96115 MB memory in total. The machine has two NVIDIA GeForce 2080Ti GPU with CUDA version 9.0.176. 
