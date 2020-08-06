@@ -74,7 +74,7 @@ This will by default generate activation paths for all the adversarial attacks g
 ## Calculate and plot AUCs
 
 ```bash
-MPLBACKEND=Agg python -m nninst.plot.plot_auc_default
+MPLBACKEND=Agg python -m nninst.plot.plot_auc
 ```
 
 ## Publication
