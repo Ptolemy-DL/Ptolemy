@@ -1,6 +1,6 @@
 # Ptolemy: Detecting Deep Learning Adversarial Samples at Inference Time
 
-This repo contains the artifact of [Ptolemy: Architectural Support for Robust Deep Learning](), which is mechanism to detect adversarial samples at inference time.
+This repo contains the artifact of [Ptolemy: Architectural Support for Robust Deep Learning](https://www.cs.rochester.edu/horizon/pubs/micro20-ptolemy.pdf), which is mechanism to detect adversarial samples at inference time.
 
 The detection mechanism is evaluated on different networks on different datasets under common attacks. The repo also contains code to generate adaptive attacks that are specifically designed to "defeat" our defense mechanisms.
 
