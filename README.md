@@ -41,15 +41,18 @@ We assume that the CIFAR10/100 raw data (i.e.,`cifar-10-python.tar.gz` and `cifa
 
 run `python cifar_preprocess.py`
 
+### Set datasets' paths
+
+1. Set `IMAGENET_RAW_DIR` in `src/nninst/dataset/envs.py` to ImageNet's path. The default path, if you have followed the instructions above, would be `imagenet-raw-data/` in the current directory.
+2. Set `CIFAR10_TRAIN`,`CIFAR10_TEST`,`CIFAR100_TRAIN`,`CIFAR100_TEST` in `src/nninst/backend/tensorflow/dataset/config.py` to change to your specific directory. The default directory would be `cifar10-raw/` and `cifar100-raw/` if you have followed the instructions above.
+
 ## Generate network graphs
 
 run `python nninst_preprocess.py`
 
 ## Generate per-class activation paths
 
-1. Set `IMAGENET_RAW_DIR` in `src/nninst/dataset/envs.py` to ImageNet's path. The default path, if you have followed the instructions above, would be `imagenet-raw-data/` in the current directory.
-2. Set `CIFAR10_TRAIN`,`CIFAR10_TEST`,`CIFAR100_TRAIN`,`CIFAR100_TEST` in `src/nninst/backend/tensorflow/dataset/config.py` to change to your specific directory. The default directory would be `cifar10-raw/` and `cifar100-raw/` if you have followed the instructions above.
-2. Run `python path_generation.py --network=Alexnet --dataset=Imagenet --type=BwCU --theta==0.5 --alpha=None`
+Run `python path_generation.py --network=Alexnet --dataset=Imagenet --type=BwCU --theta==0.5 --alpha=None`
 
 You can choose different networks `--network`, datasets `--dataset` and detection types `--type`, as well as the algorithm-specific parameters `--theta, --alpha`.
 
