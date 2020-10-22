@@ -13,14 +13,14 @@ We are using Ray 0.7.2 (https://github.com/ray-project/ray) for the distributed 
 
 ```bash
 cd <path-to-project>
-##[if GPU]
 conda env create -f environment.yml
-##[else if CPU-only]
-conda env create -f environment_cpu.yml -n nninst
-##[end]
 source activate nninst
 python setup.py develop
 ```
+
+Notes: Ptolemy needs MKL support to run on TensorFlow.
+Ptolemy uses TensorFlow-MKL by default.
+You can build TensorFlow with both MKL and CUDA support from the source by yourself.
 
 ## Download pretrained weights
 
@@ -31,7 +31,7 @@ run `python unzip_weights.py`
 ## Pre-process datasets
 
 ### ImageNet
-We assume thhat the Imagenet raw data (i.e., `ILSVRC2012_img_val.tar` and `ILSVRC2012_img_train.tar`) has been downloaded into the current directory. 
+We assume that the Imagenet raw data (i.e., `ILSVRC2012_img_val.tar` and `ILSVRC2012_img_train.tar`) has been downloaded into the current directory. 
 
 run `python imagenet_preprocess.py`
 
