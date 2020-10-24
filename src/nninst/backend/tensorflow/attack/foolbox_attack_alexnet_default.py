@@ -12,9 +12,6 @@ from foolbox.attacks import (
 )
 
 from nninst import mode
-from nninst.backend.tensorflow.attack.adversarial_patch_attack import (
-    patch_generate_adversarial_example,
-)
 from nninst.backend.tensorflow.attack.calc_density import trace_density
 from nninst.backend.tensorflow.attack.calc_per_layer_metrics import (
     get_per_layer_metrics,

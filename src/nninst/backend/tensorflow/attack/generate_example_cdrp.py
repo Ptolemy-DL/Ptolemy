@@ -8,10 +8,6 @@ from foolbox.attacks import (
 )
 
 from nninst import mode
-from nninst.backend.tensorflow.attack.adversarial_patch_attack import (
-    new_patch_generate_adversarial_example,
-    patch_generate_adversarial_example,
-)
 from nninst.backend.tensorflow.attack.cdrp import (
     alexnet_imagenet_example_cdrp,
     generate_example_cdrp,

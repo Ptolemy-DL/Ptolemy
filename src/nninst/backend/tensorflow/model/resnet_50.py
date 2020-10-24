@@ -29,6 +29,6 @@ class ResNet50(ImagenetModel):
 if __name__ == "__main__":
     ResNet50.graph().save()
     # ResNet50.create_graph()
-    graph = ResNet50.graph().load()
-    layers = graph.ops_in_layers(Conv2dOp, DenseOp)
-    print(layers)
+    # graph = ResNet50.graph().load()
+    # layers = graph.ops_in_layers(Conv2dOp, DenseOp)
+    # print(layers)

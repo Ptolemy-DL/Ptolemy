@@ -54,7 +54,7 @@ def is_distributed() -> bool:
     return _mode == ExecutionMode.DISTRIBUTED
 
 
-_check = True
+_check = False
 
 
 def check(flag: bool = True):

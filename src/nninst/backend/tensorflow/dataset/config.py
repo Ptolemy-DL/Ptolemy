@@ -31,14 +31,14 @@ MNIST_TEST = DataConfig(data_dir="/home/yxqiu/data/mnist/raw", dataset_fn=mnist.
 CIFAR10_TRAIN_VGG16 = DataConfig(data_dir="", dataset_fn=cifar10.train)
 CIFAR10_TEST_VGG16 = DataConfig(data_dir="", dataset_fn=cifar10.test)
 CIFAR10_TRAIN = DataConfig(
-    data_dir="/home/Ptolemy/cifar10-raw", dataset_fn=cifar10_main.train
+    data_dir="cifar10-raw", dataset_fn=cifar10_main.train
 )
 CIFAR10_TEST = DataConfig(
-    data_dir="/home/Ptolemy/cifar10-raw", dataset_fn=cifar10_main.test
+    data_dir="cifar10-raw", dataset_fn=cifar10_main.test
 )
 CIFAR100_TRAIN = DataConfig(
-    data_dir="/home/Ptolemy/cifar100-raw", dataset_fn=cifar100_main.train
+    data_dir="cifar100-raw", dataset_fn=cifar100_main.train
 )
 CIFAR100_TEST = DataConfig(
-    data_dir="/home/Ptolemy/cifar100-raw", dataset_fn=cifar100_main.test
+    data_dir="cifar100-raw", dataset_fn=cifar100_main.test
 )

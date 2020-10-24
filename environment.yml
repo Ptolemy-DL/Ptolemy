@@ -1,8 +1,8 @@
 name: nninst
 channels:
-- pytorch
+- https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/
 - defaults
-- conda-forge
+- https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
 dependencies:
 - python=3.6.8
 - pip=19.1
@@ -15,7 +15,8 @@ dependencies:
 #- pyarrow=0.9.0
 #- feather-format=0.4.0
 #- pytables=3.4.2
-- tensorflow=1.13.1=gpu*
+- tensorflow=1.13.1=mkl*
+#- tensorflow=1.13.1=eigen*
 - pytorch=1.1.0
 - torchvision=0.2.2
 - cudatoolkit=10.0

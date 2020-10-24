@@ -105,5 +105,5 @@ class AlexNet:
 
 if __name__ == "__main__":
     AlexNet.graph().save()
-    graph = AlexNet.graph().load()
-    graph.print()
+    # graph = AlexNet.graph().load()
+    # graph.print()
