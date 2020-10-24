@@ -40,5 +40,5 @@ if __name__ == "__main__":
     #     logits = model(input, training=False)
     #     summary_writer = tf.summary.FileWriter(abspath("tmp/logs"), sess.graph)
     VGG16Cifar10.graph().save()
-    graph = VGG16Cifar10.graph().load()
-    graph.print()
+    # graph = VGG16Cifar10.graph().load()
+    # graph.print()

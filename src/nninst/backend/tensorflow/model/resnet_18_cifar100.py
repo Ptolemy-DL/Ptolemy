@@ -27,8 +27,8 @@ class ResNet18Cifar100(CifarModel):
 
 
 if __name__ == "__main__":
-    # ResNet18Cifar100.graph().save()
-    graph = ResNet18Cifar100.graph().load()
+    ResNet18Cifar100.graph().save()
+    # graph = ResNet18Cifar100.graph().load()
     # layers = graph.layers()
-    layers = graph.ops_in_layers(Conv2dOp, DenseOp)
-    print(layers)
+    # layers = graph.ops_in_layers(Conv2dOp, DenseOp)
+    # print(layers)

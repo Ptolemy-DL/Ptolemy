@@ -189,6 +189,10 @@ fabric.properties
 /runs*
 /tf
 /tensorboard
+/cifar10-raw
+/cifar100-raw
+/imagenet-raw-data
+/ILSVRC2012_img_val
 src/cleverhans
 tmp
 *.pdf

@@ -18,9 +18,10 @@ source activate nninst
 python setup.py develop
 ```
 
-Notes: Ptolemy needs MKL support to run on TensorFlow.
+Notes: Ptolemy needs the MKL support to run on TensorFlow.
 Ptolemy uses TensorFlow-MKL by default.
 You can build TensorFlow with both MKL and CUDA support from the source by yourself.
+The CUDA support can vastly speed up the generation of the adversarial examples.
 
 ## Download pretrained weights
 
@@ -41,7 +42,9 @@ We assume that the CIFAR10/100 raw data (i.e.,`cifar-10-python.tar.gz` and `cifa
 
 run `python cifar_preprocess.py`
 
-### Set datasets' paths
+### Set datasets' paths (optional)
+
+If the Imagenet and CIFAR10/100 raw data has been downloaded into the current directory, you can safely skip this step.
 
 1. Set `IMAGENET_RAW_DIR` in `src/nninst/dataset/envs.py` to ImageNet's path. The default path, if you have followed the instructions above, would be `imagenet-raw-data/` in the current directory.
 2. Set `CIFAR10_TRAIN`,`CIFAR10_TEST`,`CIFAR100_TRAIN`,`CIFAR100_TEST` in `src/nninst/backend/tensorflow/dataset/config.py` to change to your specific directory. The default directory would be `cifar10-raw/` and `cifar100-raw/` if you have followed the instructions above.
