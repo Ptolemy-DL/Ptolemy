@@ -49,8 +49,8 @@ from nninst.utils.ray import ray_init
 
 if __name__ == "__main__":
     # mode.debug()
-    mode.distributed()
-    # mode.local()
+    # mode.distributed()
+    mode.local()
     # ray_init()
     ray_init("gpu")
 
