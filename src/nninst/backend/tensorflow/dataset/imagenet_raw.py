@@ -212,6 +212,8 @@ def input_fn(
         challenge_synsets[class_id if class_from_zero else (class_id - 1)],
     )
     matching_files = tf.gfile.Glob(jpeg_file_path)
+    if len(matching_files) == 0:
+        raise RuntimeError(f"cannot find any files matching {jpeg_file_path}")
 
     coder = ImageCoder()
 
@@ -259,6 +261,9 @@ def input_fn(
         # print(count)
     else:
         if batch == 1:
+            if image_id >= len(matching_files):
+                raise RuntimeError(f"cannot find enough files matching {jpeg_file_path}, "
+                                   f"require: {image_id+1}, actual: {len(matching_files)}")
             dataset = tf.data.Dataset.zip(
                 (
                     tf.data.Dataset.from_tensors(
@@ -272,6 +277,9 @@ def input_fn(
         else:
 
             def generate_image_buffer_with_label_batch():
+                if image_id + batch >= len(matching_files):
+                    raise RuntimeError(f"cannot find enough files matching {jpeg_file_path}, "
+                                       f"require: {image_id+batch+1}, actual: {len(matching_files)}")
                 for filename in matching_files[image_id : image_id + batch]:
                     yield (to_image_buffer(filename), class_id)
 
