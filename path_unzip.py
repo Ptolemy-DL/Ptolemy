@@ -3,12 +3,12 @@ import argparse
 import sys
 
 def main():
-    os.system('mkdir store/analysis')
-    os.system('mkdir store/analysis/type2_trace')
-    os.system('mkdir store/analysis/type4_trace')
-    os.system('mkdir store/analysis/unstructured_class_trace')
-    os.system('mkdir store/analysis/type21112222')
-    os.system('mkdir store/analysis/type211111111222222222')
+    os.system('mkdir -p store/analysis')
+    os.system('mkdir -p store/analysis/type2_trace')
+    os.system('mkdir -p store/analysis/type4_trace')
+    os.system('mkdir -p store/analysis/unstructured_class_trace')
+    os.system('mkdir -p store/analysis/type21112222')
+    os.system('mkdir -p store/analysis/type211111111222222222')
 
     if os.path.exists('alexnet_imagenet_import_compact_BwCU.zip'):
         os.system('unzip alexnet_imagenet_import_compact_BwCU -d store/analysis/type2_trace')

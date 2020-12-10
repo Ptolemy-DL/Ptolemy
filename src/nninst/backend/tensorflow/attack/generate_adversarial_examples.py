@@ -9,10 +9,6 @@ from foolbox.attacks import (
 )
 
 from nninst import mode
-from nninst.backend.tensorflow.attack.adversarial_patch_attack import (
-    new_patch_generate_adversarial_example,
-    patch_generate_adversarial_example,
-)
 from nninst.backend.tensorflow.attack.common import (
     alexnet_imagenet_example,
     densenet_cifar10_example,
@@ -53,8 +49,8 @@ from nninst.utils.ray import ray_init
 
 if __name__ == "__main__":
     # mode.debug()
-    mode.distributed()
-    # mode.local()
+    # mode.distributed()
+    mode.local()
     # ray_init()
     ray_init("gpu")
 

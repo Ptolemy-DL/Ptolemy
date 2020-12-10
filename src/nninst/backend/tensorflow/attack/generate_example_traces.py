@@ -9,10 +9,6 @@ from foolbox.attacks import (
 )
 
 from nninst import mode
-from nninst.backend.tensorflow.attack.adversarial_patch_attack import (
-    new_patch_generate_adversarial_example,
-    patch_generate_adversarial_example,
-)
 from nninst.backend.tensorflow.attack.common import (
     alexnet_imagenet_example,
     alexnet_imagenet_example_trace,
@@ -50,14 +46,14 @@ if __name__ == "__main__":
 
     for generate_adversarial_fn, attack_name, attack_fn in [
         [None, "original", None],
-        [foolbox_generate_adversarial_example, "DeepFool", DeepFoolAttack],
-        [foolbox_generate_adversarial_example, "FGSM", FGSM],
+        # [foolbox_generate_adversarial_example, "DeepFool", DeepFoolAttack],
+        # [foolbox_generate_adversarial_example, "FGSM", FGSM],
         # [foolbox_generate_adversarial_example, "FGSM_targeted", random_targeted(FGSM, 1, 999)],
         # [foolbox_generate_adversarial_example, "FGSM_iterative_targeted", random_targeted(TargetedIterativeFGSM, 1, 999)],
-        [foolbox_generate_adversarial_example, "JSMA", SaliencyMapAttack],
-        [foolbox_generate_adversarial_example, "BIM", IterativeGradientSignAttack],
+        # [foolbox_generate_adversarial_example, "JSMA", SaliencyMapAttack],
+        # [foolbox_generate_adversarial_example, "BIM", IterativeGradientSignAttack],
         # [foolbox_generate_adversarial_example, "Random", RandomAttack],
-        [cw_generate_adversarial_example, "CWL2", CarliniL2],
+        # [cw_generate_adversarial_example, "CWL2", CarliniL2],
         # [cw_generate_adversarial_example, "CWL2_confidence=3.5", partial(CarliniL2, confidence=3.5)],
         # [cw_generate_adversarial_example, "CWL2_confidence=14", partial(CarliniL2, confidence=14)],
         # [cw_generate_adversarial_example, "CWL2_confidence=28", partial(CarliniL2, confidence=28)],

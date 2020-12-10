@@ -84,8 +84,8 @@ def resnet_50_imagenet_class_trace(
 if __name__ == "__main__":
     # mode.check(False)
     # mode.debug()
-    # mode.local()
-    mode.distributed()
+    mode.local()
+    # mode.distributed()
     ray_init("dell")
     threshold = 0.5
     # threshold = 1
