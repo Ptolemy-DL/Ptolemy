@@ -99,4 +99,4 @@ MPLBACKEND=Agg python -m nninst.plot.plot_auc
 
 We currently do not support Pytorch. For users who needs to port Ptolemy into Pytorch, we provides simple tutorial here.
 1. Change Pytorch model into nninst.Graph. (https://github.com/Ptolemy-DL/Ptolemy/blob/master/src/nninst/graph.py)
-2. Reuse the code to extract path; If new operations is needed, please add the definition of operations (https://github.com/Ptolemy-DL/Ptolemy/blob/master/src/nninst/op.py#L26) and defination of extraction (https://github.com/Ptolemy-DL/Ptolemy/blob/master/src/nninst/trace.py#L1336) function manually.
+2. Reuse the code to extract path; If new operations is needed, please add the definition of operations (https://github.com/Ptolemy-DL/Ptolemy/blob/master/src/nninst/op.py#L26) and defination of extraction function (https://github.com/Ptolemy-DL/Ptolemy/blob/master/src/nninst/trace.py#L1336) manually.
