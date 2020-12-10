@@ -78,3 +78,13 @@ MPLBACKEND=Agg python -m nninst.plot.plot_auc
 ```
 
 ## Publication
+```bash
+@inproceedings{gan2020ptolemy,
+  title={Ptolemy: Architecture support for robust deep learning},
+  author={Gan, Yiming and Qiu, Yuxian and Leng, Jingwen and Guo, Minyi and Zhu, Yuhao},
+  booktitle={2020 53rd Annual IEEE/ACM International Symposium on Microarchitecture (MICRO)},
+  pages={241--255},
+  year={2020},
+  organization={IEEE}
+}
+```
