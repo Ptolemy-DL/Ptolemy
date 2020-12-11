@@ -95,8 +95,10 @@ MPLBACKEND=Agg python -m nninst.plot.plot_auc
 }
 ```
 
-## Pytorch Implementation
+## PyTorch Implementation
 
-We currently do not support Pytorch. For users who need to port Ptolemy into Pytorch, we provides simple tutorial here.
-1. Change Pytorch model into nninst.Graph. (https://github.com/Ptolemy-DL/Ptolemy/blob/master/src/nninst/graph.py)
-2. Reuse the code to extract path; If new operations is needed, please add the definition of operations (https://github.com/Ptolemy-DL/Ptolemy/blob/master/src/nninst/op.py#L26) and defination of extraction function (https://github.com/Ptolemy-DL/Ptolemy/blob/master/src/nninst/trace.py#L1336) manually.
+We currently do not support PyTorch. For users who need to port Ptolemy into PyTorch, we provide a simple tutorial here. Contributions are welcome.
+
+1. Convert PyTorch model into `nninst.Graph`. (https://github.com/Ptolemy-DL/Ptolemy/blob/master/src/nninst/graph.py)
+2. Reuse the code to extract path.
+3. (Optional) If new ops are needed, please add the definition of ops (see the definition of `DenseOp` here: https://github.com/Ptolemy-DL/Ptolemy/blob/master/src/nninst/op.py#L26) and the definition of their corresponding extraction functions (see the definition of `DenseOp`'s extraction function here: https://github.com/Ptolemy-DL/Ptolemy/blob/master/src/nninst/trace.py#L1336).
