@@ -37,6 +37,74 @@ from nninst.backend.tensorflow.dataset.imagenet_preprocessing import _CHANNEL_ME
 from nninst.trace import get_trace
 from nninst.utils.ray import ray_init
 
+def generate_original_example_traces(model: str):
+    if model == "alexnet":
+        example_trace_fn = alexnet_imagenet_example_trace
+        class_ids = range(1000)
+        image_ids = range(1)
+    elif model == "resnet18_cifar100":
+        example_trace_fn = resnet_18_cifar100_example_trace
+        class_ids = range(100)
+        image_ids = range(10)
+    elif model == "lenet":
+        example_trace_fn = lenet_mnist_example_trace
+        class_ids = range(10)
+        image_ids = range(100)
+    elif model == "resnet18_cifar10":
+        example_trace_fn = resnet_18_cifar10_example_trace
+        class_ids = range(10)
+        image_ids = range(100)
+    elif model == "resnet50":
+        example_trace_fn = resnet_50_imagenet_example_trace
+        class_ids = range(1, 1001)
+        image_ids = range(1)
+    elif model == "vgg16":
+        example_trace_fn = vgg_16_imagenet_example_trace
+        class_ids = range(1000)
+        image_ids = range(1)
+    generate_adversarial_fn = None
+    attack_name = "original"
+    attack_fn = None
+
+    for threshold, per_channel, train in itertools.product(
+        [
+            # 1.0,
+            # 0.9,
+            # 0.7,
+            0.5,
+            # 0.3,
+            # 0.1,
+        ],
+        [
+            # True,
+            False
+        ],
+        [
+            True,
+            # False,
+        ],
+    ):
+        generate_example_traces(
+            example_trace_fn=partial(
+                example_trace_fn,
+                attack_fn=attack_fn,
+                generate_adversarial_fn=generate_adversarial_fn,
+                trace_fn=partial(get_trace, collect_metrics=True)
+                if train
+                else get_trace,
+                threshold=threshold,
+                per_channel=per_channel,
+                # cache=False,
+                select_seed_fn=None,
+                entry_points=None,
+                train=train,
+            ),
+            class_ids=class_ids,
+            image_ids=image_ids,
+            attack_name=attack_name,
+        )
+
+
 if __name__ == "__main__":
     # mode.debug()
     # mode.distributed()

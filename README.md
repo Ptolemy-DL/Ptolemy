@@ -53,6 +53,8 @@ If the Imagenet and CIFAR10/100 raw data has been downloaded into the current di
 
 run `python nninst_preprocess.py`
 
+You can choose different networks `--network` and datasets `--dataset`. The default config is `Alexnet` + `Imagenet`.
+
 ## Generate per-class activation paths
 
 Run `python path_generation.py --network=Alexnet --dataset=Imagenet --type=BwCU --theta==0.5 --alpha=None`

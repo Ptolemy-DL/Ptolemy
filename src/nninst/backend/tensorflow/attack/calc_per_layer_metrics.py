@@ -92,12 +92,7 @@ def get_per_layer_metrics(
     return metrics
 
 
-if __name__ == "__main__":
-    model_config = ALEXNET
-    # model_config = RESNET_18_CIFAR100
-    # model_config = RESNET_18_CIFAR10
-    # model_config = LENET
-    # model_config = RESNET_50
+def calc_per_layer_metrics(model_config: ModelConfig):
     for threshold, absolute_threshold in itertools.product(
         [
             # 1.0,
@@ -121,3 +116,12 @@ if __name__ == "__main__":
         )
         density.save()
         print(density.load())
+
+
+if __name__ == "__main__":
+    model_config = ALEXNET
+    # model_config = RESNET_18_CIFAR100
+    # model_config = RESNET_18_CIFAR10
+    # model_config = LENET
+    # model_config = RESNET_50
+    calc_per_layer_metrics(model_config)

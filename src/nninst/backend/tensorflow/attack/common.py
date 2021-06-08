@@ -4276,7 +4276,12 @@ def real_metrics_per_layer_v2(
                 class_id=class_id,
                 image_id=image_id,
                 label=label,
-            ).load()
+            )
+
+            if adversarial_example.is_saved():
+                adversarial_example = adversarial_example.load()
+            else:
+                return [{}] if per_node else {}
 
             if adversarial_example is None:
                 return [{}] if per_node else {}
