@@ -38,7 +38,7 @@ run `python imagenet_preprocess.py`
 
 ### CIFAR-10 and CIFAR-100
 
-We assume that the CIFAR10/100 raw data (i.e.,`cifar-10-python.tar.gz` and `cifar-100-python.tar.gz`) has been downloaded into the current directory. 
+We assume that the CIFAR10/100 raw data (i.e.,`cifar-10-binary.tar.gz` and `cifar-100-binary.tar.gz`) has been downloaded into the current directory. 
 
 run `python cifar_preprocess.py`
 
