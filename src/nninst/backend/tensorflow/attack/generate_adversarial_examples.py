@@ -51,19 +51,19 @@ if __name__ == "__main__":
     # mode.debug()
     # mode.distributed()
     mode.local()
-    # ray_init()
-    ray_init("gpu")
+    ray_init()
+    # ray_init("gpu")
 
     for generate_adversarial_fn, attack_name, attack_fn in [
-        [foolbox_generate_adversarial_example, "Adaptive_layer1", partial(AdaptiveAttack, layer_num=1)],
-        [foolbox_generate_adversarial_example, "Adaptive_layer2", partial(AdaptiveAttack, layer_num=2)],
-        [foolbox_generate_adversarial_example, "Adaptive_layer4", partial(AdaptiveAttack, layer_num=4)],
-        [foolbox_generate_adversarial_example, "Adaptive_layer5", partial(AdaptiveAttack, layer_num=5)],
-        [foolbox_generate_adversarial_example, "Adaptive_layer6", partial(AdaptiveAttack, layer_num=6)],
-        [foolbox_generate_adversarial_example, "Adaptive_layer7", partial(AdaptiveAttack, layer_num=7)],
-        [foolbox_generate_adversarial_example, "Adaptive_layer9", partial(AdaptiveAttack, layer_num=9)],
-        [foolbox_generate_adversarial_example, "Adaptive_layer3", partial(AdaptiveAttack, layer_num=3)],
-        [foolbox_generate_adversarial_example, "Adaptive_layer8", partial(AdaptiveAttack, layer_num=8)],
+        # [foolbox_generate_adversarial_example, "Adaptive_layer1", partial(AdaptiveAttack, layer_num=1)],
+        # [foolbox_generate_adversarial_example, "Adaptive_layer2", partial(AdaptiveAttack, layer_num=2)],
+        # [foolbox_generate_adversarial_example, "Adaptive_layer4", partial(AdaptiveAttack, layer_num=4)],
+        # [foolbox_generate_adversarial_example, "Adaptive_layer5", partial(AdaptiveAttack, layer_num=5)],
+        # [foolbox_generate_adversarial_example, "Adaptive_layer6", partial(AdaptiveAttack, layer_num=6)],
+        # [foolbox_generate_adversarial_example, "Adaptive_layer7", partial(AdaptiveAttack, layer_num=7)],
+        # [foolbox_generate_adversarial_example, "Adaptive_layer9", partial(AdaptiveAttack, layer_num=9)],
+        # [foolbox_generate_adversarial_example, "Adaptive_layer3", partial(AdaptiveAttack, layer_num=3)],
+        # [foolbox_generate_adversarial_example, "Adaptive_layer8", partial(AdaptiveAttack, layer_num=8)],
         # [foolbox_generate_adversarial_example, "Adaptive_cos_layer9", partial(AdaptiveAttack, use_l2_loss=False, layer_num=9)],
         # [
         #     foolbox_generate_adversarial_example,
