@@ -26,8 +26,11 @@ from nninst.backend.tensorflow.attack.foolbox_attacks.fgsm import (
     TargetedIterativeFGSM,
 )
 from nninst.backend.tensorflow.attack.random_attack import RandomAttack
+from nninst.backend.tensorflow.attack.utils import parse_path_generation_args
 from nninst.backend.tensorflow.dataset import imagenet
 from nninst.backend.tensorflow.dataset.imagenet_preprocessing import _CHANNEL_MEANS
+from nninst.backend.tensorflow.model.config import VGG_16
+from nninst.backend.tensorflow.model.vgg_16 import VGG16
 from nninst.backend.tensorflow.trace.resnet_50_imagenet_class_trace_v3 import (
     resnet_50_imagenet_class_trace_compact,
 )
@@ -43,9 +46,11 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "1"
 
 
 if __name__ == "__main__":
+    absolute_threshold, cumulative_threshold, type_ = parse_path_generation_args(VGG_16)
+    trace_fn, trace_label, trace_type, trace_parameter = type_
     # mode.debug()
-    mode.distributed()
-    # mode.local()
+    # mode.distributed()
+    mode.local()
     # ray_init("dell")
     ray_init()
     # threshold = 0.5
@@ -90,8 +95,9 @@ if __name__ == "__main__":
     # use_weight = True
     print(f"attack model with label {label} using Foolbox")
     for attack_name, generate_adversarial_fn in [
+        ["normal", None],
         ["DeepFool", foolbox_generate_adversarial_example],
-        # ["FGSM", foolbox_generate_adversarial_example],
+        ["FGSM", foolbox_generate_adversarial_example],
         # ["FGSM_targeted", foolbox_generate_adversarial_example],
         # ["FGSM_iterative_targeted", foolbox_generate_adversarial_example],
         ["BIM", foolbox_generate_adversarial_example],
@@ -118,7 +124,8 @@ if __name__ == "__main__":
                 # 1.0,
                 # 0.9,
                 # 0.7,
-                0.5,
+                # 0.5,
+                cumulative_threshold,
                 # 0.3,
                 # 0.1,
             ],
@@ -161,6 +168,8 @@ if __name__ == "__main__":
 
             if use_weight:
                 label_name = f"{label_name}_weight"
+            if trace_label is not None:
+                label_name = f"{label_name}_{trace_label}"
             if rank is not None:
                 label_name = f"{label_name}_rank{rank}"
 
@@ -294,7 +303,7 @@ if __name__ == "__main__":
                 attack_fn=attacks[attack_name][0],
                 generate_adversarial_fn=generate_adversarial_fn,
                 trace_fn=partial(
-                    get_trace,
+                    trace_fn,
                     select_fn=lambda input: arg_approx(input, threshold),
                     select_seed_fn=None,
                     entry_points=None,
@@ -310,6 +319,8 @@ if __name__ == "__main__":
                     threshold,
                     label=label,
                     variant=variant,
+                    trace_type=trace_type,
+                    trace_parameter=trace_parameter,
                 ),
                 # class_trace_fn=lambda class_id: lenet_mnist_class_trace(class_id, threshold),
                 select_fn=lambda input: arg_approx(input, threshold),

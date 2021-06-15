@@ -1,3 +1,4 @@
+import argparse
 import itertools
 import os
 from functools import partial
@@ -27,6 +28,7 @@ from nninst.backend.tensorflow.attack.foolbox_attacks.fgsm import (
     TargetedIterativeFGSM,
 )
 from nninst.backend.tensorflow.attack.random_attack import RandomAttack
+from nninst.backend.tensorflow.attack.utils import parse_path_generation_args
 from nninst.backend.tensorflow.dataset import imagenet
 from nninst.backend.tensorflow.model import AlexNet
 from nninst.backend.tensorflow.model.config import ALEXNET
@@ -55,29 +57,7 @@ from nninst.utils.ray import ray_init
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "1"
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--type",
-        type=str,
-        default="EP",
-        help="Different types of path extraction, default EP, pick between BwCU, BwAB and FwAB",
-    )
-    parser.add_argument(
-        "--cumulative_threshold",
-        type=float,
-        default=0.5,
-        help="cumulative threshold theta, default 0.5",
-    )
-    parser.add_argument(
-        "--absolute_threshold",
-        type=float,
-        default=0,
-        help="absolute threshold phi, default None",
-    )
-    params, unparsed = parser.parse_known_args()
-    from nninst.backend.tensorflow.attack.calc_per_layer_metrics import (
-        get_per_layer_metrics,
-    )
+    absolute_threshold, cumulative_threshold, type_ = parse_path_generation_args(ALEXNET)
     # mode.debug()
     # mode.distributed()
     mode.local()
@@ -203,10 +183,6 @@ if __name__ == "__main__":
         False,
         # True,
     )
-    if params.absolute_threshold == 0:
-        t = None
-    else:
-        t = params.absolute_threshold
     for threshold, absolute_threshold in itertools.product(
         [
             # 1.0,
@@ -215,10 +191,10 @@ if __name__ == "__main__":
             #0.5,
             # 0.3,
             # 0.1,
-            params.cumulative_threshold,
+            cumulative_threshold,
         ],
         [
-            t,
+            absolute_threshold,
             #None,
             # 0.05,
             # 0.1,
@@ -227,9 +203,6 @@ if __name__ == "__main__":
             # 0.4,
         ],
     ):
-        per_layer_metrics = lambda: get_per_layer_metrics(
-            ALEXNET, threshold=threshold, absolute_threshold=absolute_threshold
-        )
         # hybrid_backward_traces = [
         #     [
         #         partial(
@@ -254,37 +227,6 @@ if __name__ == "__main__":
         #         # "42222222", # == type4
         #     ]
         # ]
-        if params.type == "EP":
-            type_ = [get_trace, None, None]
-        elif params.type == "BwCU":
-            type_ = [
-                partial(get_type2_trace, output_threshold=per_layer_metrics()),
-                "type2_trace",
-                f"density_from_{threshold:.1f}",
-            ]
-        elif params.type == "BwAB":
-            type_ = [
-                partial(
-                    get_type4_trace,
-                    output_threshold=per_layer_metrics(),
-                    input_threshold=per_layer_metrics(),
-                ),
-                "type4_trace",
-                f"density_from_{threshold:.1f}_absolute_{absolute_threshold:.2f}",
-            ]
-        elif params.type == "FwAB":
-            type_ = [
-                partial(
-                    get_per_input_unstructured_trace,
-                    output_threshold=per_layer_metrics(),
-                    input_threshold=per_layer_metrics(),
-                ),
-                "per_input_unstructured_class_trace",
-                f"density_from_{threshold:.1f}",
-            ]
-        else:
-            print("path construction type not supported")
-            sys.exit()
         trace_fn, trace_label, trace_type, trace_parameter = alts(
             type_
             #[get_trace, None, None, None],  # type1

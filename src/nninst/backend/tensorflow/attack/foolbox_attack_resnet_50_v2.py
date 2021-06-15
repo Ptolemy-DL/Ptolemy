@@ -49,8 +49,8 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "1"
 
 if __name__ == "__main__":
     # mode.debug()
-    mode.distributed()
-    # mode.local()
+    # mode.distributed()
+    mode.local()
     # ray_init("dell")
     ray_init()
 

@@ -31,6 +31,7 @@ from nninst.backend.tensorflow.attack.foolbox_attacks.fgsm import (
     TargetedIterativeFGSM,
 )
 from nninst.backend.tensorflow.attack.random_attack import RandomAttack
+from nninst.backend.tensorflow.attack.utils import parse_path_generation_args
 from nninst.backend.tensorflow.dataset import imagenet
 from nninst.backend.tensorflow.model.config import RESNET_18_CIFAR100
 from nninst.backend.tensorflow.model.resnet_18_cifar100 import ResNet18Cifar100
@@ -66,29 +67,10 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "1"
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--type",
-        type=str,
-        default="EP",
-        help="Different types of path extraction, default EP, pick between BwCU, BwAB and FwAB",
-    )
-    parser.add_argument(
-        "--cumulative_threshold",
-        type=float,
-        default=0.5,
-        help="cumulative threshold theta, default 0.5",
-    )
-    parser.add_argument(
-        "--absolute_threshold",
-        type=float,
-        default=None,
-        help="absolute threshold phi, default None",
-    )
-    params, unparsed = parser.parse_known_args()
+    absolute_threshold, cumulative_threshold, type_ = parse_path_generation_args(RESNET_18_CIFAR100)
     # mode.debug()
-    mode.distributed()
-    # mode.local()
+    # mode.distributed()
+    mode.local()
     # ray_init("dell")
     ray_init()
     attacks = {
@@ -130,12 +112,12 @@ if __name__ == "__main__":
     print(f"attack model with label {label} using Foolbox")
     attack_name, generate_adversarial_fn = alts(
         ["normal", None],
-        # ["DeepFool", foolbox_generate_adversarial_example],
-        # ["FGSM", foolbox_generate_adversarial_example],
+        ["DeepFool", foolbox_generate_adversarial_example],
+        ["FGSM", foolbox_generate_adversarial_example],
         # ["FGSM_targeted", foolbox_generate_adversarial_example],
         # ["FGSM_iterative_targeted", foolbox_generate_adversarial_example],
-        # ["BIM", foolbox_generate_adversarial_example],
-        # ["JSMA", foolbox_generate_adversarial_example],
+        ["BIM", foolbox_generate_adversarial_example],
+        ["JSMA", foolbox_generate_adversarial_example],
         ["CWL2", cw_generate_adversarial_example],
         # ["CWL2_confidence=3.5", cw_generate_adversarial_example],
         # ["CWL2_confidence=14", cw_generate_adversarial_example],
@@ -213,78 +195,45 @@ if __name__ == "__main__":
         # 1.0,
         # 0.9,
         # 0.7,
-        params.cumulative_threshold,
+        # 0.5,
+        cumulative_threshold,
         # 0.3,
         # 0.1,
     ]:
-        per_layer_metrics = lambda: get_per_layer_metrics(
-            RESNET_18_CIFAR100, threshold=threshold
-        )
-    #    hybrid_backward_traces = [
-    #        [
-    #            partial(
-    #                get_hybrid_backward_trace,
-    #                output_threshold=per_layer_metrics(),
-    #                input_threshold=per_layer_metrics(),
-    #                type_code=type_code,
-    #            ),
-    #            f"type{type_code}_density_from_{threshold:.1f}",
-    #            f"type{type_code}_trace",
-    #            f"density_from_{threshold:.1f}",
-    #        ]
-    #        for type_code in [
-                # "211111111111111111", # == type2
-    #            "211111111111111112",
-    #            "211111111111111122",
-    #            "211111111111111222",
-    #            "211111111111112222",
-    #            "211111111111122222",
-    #            "211111111111222222",
-    #            "211111111112222222",
-    #            "211111111122222222",
-    #            "211111111222222222",
-    #            "211111112222222222",
-    #            "211111122222222222",
-    #            "211111222222222222",
-    #            "211112222222222222",
-    #            "211122222222222222",
-    #            "211222222222222222",
-    #            "212222222222222222",
-    #            "222222222222222222",
-                # "422222222222222222", # == type4
-    #        ]
-    #    ]
-        if params.type == "EP":
-            type_ = [get_trace, None, None]
-        elif params.type == "BwCU":
-            type_ = [
-                partial(get_type2_trace, output_threshold=per_layer_metrics()),
-                "type2_trace",
-                f"density_from_{threshold:.1f}",
-            ]
-        elif params.type == "BwAB":
-            type_ = [
-                partial(
-                    get_type4_trace,
-                    output_threshold=per_layer_metrics(),
-                    input_threshold=per_layer_metrics(),
-                ),
-                "type4_trace",
-                f"density_from_{threshold:.1f}_absolute_{absolute_threshold:.2f}",
-            ]
-        elif params.type == "FwAB":
-            type_ = [
-                partial(
-                    get_per_input_unstructured_trace,
-                    output_threshold=per_layer_metrics(),
-                    input_threshold=per_layer_metrics(),
-                ),
-                "per_input_unstructured_class_trace",
-                f"density_from_{threshold:.1f}",
-            ]
-        else:
-            print("path construction type not supported")
-            sys.exit()
+        #hybrid_backward_traces = [
+        #    [
+        #        partial(
+        #            get_hybrid_backward_trace,
+        #            output_threshold=per_layer_metrics(),
+        #            input_threshold=per_layer_metrics(),
+        #            type_code=type_code,
+        #        ),
+        #        f"type{type_code}_density_from_{threshold:.1f}",
+        #        f"type{type_code}_trace",
+        #        f"density_from_{threshold:.1f}",
+        #    ]
+        #    for type_code in [
+        #        "211111111111111111", # == type2
+        #        "211111111111111112",
+        #        "211111111111111122",
+        #        "211111111111111222",
+        #        "211111111111112222",
+        #        "211111111111122222",
+        #        "211111111111222222",
+        #        "211111111112222222",
+        #        "211111111122222222",
+        #        "211111111222222222",
+        #        "211111112222222222",
+        #        "211111122222222222",
+        #        "211111222222222222",
+        #        "211112222222222222",
+        #        "211122222222222222",
+        #        "211222222222222222",
+        #        "212222222222222222",
+        #        "222222222222222222",
+        #         "422222222222222222", # == type4
+        #    ]
+        #]
         trace_fn, trace_label, trace_type, trace_parameter = alts(
             type_,
             # [get_trace, None, None, None],

@@ -33,9 +33,9 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "1"
 
 
 if __name__ == "__main__":
-    mode.debug()
+    # mode.debug()
     # mode.distributed()
-    # mode.local()
+    mode.local()
     # ray_init("gpu")
     # ray_init("dell")
     ray_init()

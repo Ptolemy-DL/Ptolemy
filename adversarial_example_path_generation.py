@@ -53,9 +53,6 @@ def main():
         if params.dataset == 'Imagenet':
             cmd = 'python -m nninst.backend.tensorflow.attack.foolbox_attack_vgg16 --type=='+ params.type +' --cumulative_threshold='+str(params.cumulative_threshold)+' --absolute_threshold='+str(params.absolute_threshold)
             os.system(cmd)
-        elif params.dataset == 'Cifar-10':
-            cmd = 'python -m nninst.backend.tensorflow.attack.foolbox_attack_vgg16 --type=='+ params.type +' --cumulative_threshold='+str(params.cumulative_threshold)+' --absolute_threshold='+str(params.absolute_threshold)
-            os.system(cmd)
         else:
             print('Network Dataset combination is not supported yet')
     else:
